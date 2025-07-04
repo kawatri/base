@@ -21,8 +21,8 @@ EXPOSE 9000
 
 WORKDIR /var/www/hrazafia.42.fr
 
-HEALTHCHECK --interval=10s --timeout=5s --retries=3 \
-  CMD curl -f http://localhost/wp-admin/install.php || exit 1
+HEALTHCHECK --interval=10s --timeout=5s --retries=5 \
+  CMD ["wp", "core", "is-installed", "--allow-root"]
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 CMD ["php-fpm7.4", "-F"]
