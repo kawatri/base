@@ -11,9 +11,9 @@ if [ ! -f /var/www/hrazafia.42.fr/wp-config.php ]; then
 
   wp core install --url="$DOMAINE_NAME" \
                   --title="$WEBSITE_TITLE" \
-                  --admin_user="superuser" \
+                  --admin_user="$ADMIN_USER" \
                   --admin_password="user1234" \
-                  --admin_email="superuser@gmail.com" \
+                  --admin_email="$ADIMIN_EMAIL" \
                   --skip-email \
                   --allow-root
 
