@@ -1,17 +1,16 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
+
+USER_PASSWORD="$(<"$MYSQL_PASSWORD_FILE")"
 
 if [ ! -f /var/www/hrazafia.42.fr/wp-config.php ]; then
   wp core download --allow-root
 
-  wp config create --dbname="hrazafiadb" \
-                   --dbuser="hrazafia" \
-                   --dbpass="user1234" \
-                   --dbhost="mariadb" \
-                   --allow-root
+  wp config create --dbname="$MYSQL_DATABASE" --dbuser="$MYSQL_USER" \
+    --dbpass="$USER_PASSWORD" --dbhost="$DATABASE_HOST" --allow-root
 
-  wp core install --url="hrazafia.42.fr" \
-                  --title="Inception" \
+  wp core install --url="$DOMAINE_NAME" \
+                  --title="$WEBSITE_TITLE" \
                   --admin_user="superuser" \
                   --admin_password="user1234" \
                   --admin_email="superuser@gmail.com" \
@@ -25,3 +24,4 @@ if [ ! -f /var/www/hrazafia.42.fr/wp-config.php ]; then
 fi
 
 exec "$@"
+

@@ -44,6 +44,11 @@ services:
     image: wordpress:hrazafia
     container_name: wordpress
     restart: always
+    env_file:
+      - .env
+    environment:
+      MYSQL_PASSWORD_FILE: /run/secrets/db_passwd
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_root_passwd
     volumes:
       - wordpress_data:/var/www/hrazafia.42.fr
     depends_on:
@@ -52,6 +57,9 @@ services:
     networks:
       - frontend_network
       - backend_network
+    secrets:
+      - db_passwd
+      - db_root_passwd
 
 volumes:
   mariadb_data:
