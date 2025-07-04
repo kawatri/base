@@ -15,14 +15,14 @@ RUN chmod +x /usr/local/bin/entrypoint.sh
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
     && chmod +x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp
 
+HEALTHCHECK --interval=10s --timeout=5s --retries=3 \
+  CMD ["wp", "core", "is-installed", "--allow-root"]
+
 VOLUME ["/var/www/hrazafia.42.fr"]
 
 EXPOSE 9000
 
 WORKDIR /var/www/hrazafia.42.fr
-
-HEALTHCHECK --interval=10s --timeout=5s --retries=3 \
-  CMD ["wp", "core", "is-installed", "--allow-root"]
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 CMD ["php-fpm7.4", "-F"]
