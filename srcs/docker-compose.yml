@@ -55,7 +55,7 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: /home/hrazafia/data/db
+      device: /home/hrazafia/data/mariadb
       o: bind
   wordpress_data:
     driver: local
