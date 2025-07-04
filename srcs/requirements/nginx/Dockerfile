@@ -18,7 +18,7 @@ COPY ./tools/entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
 HEALTHCHECK --interval=30s --timeout=5s --start-period=15s --retries=3 \
-  CMD curl -kfsS https://localhost/ || exit 1
+  CMD curl -kfsS https://localhost/health || exit 1
 
 EXPOSE 443
 
