@@ -5,7 +5,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 LABEL maintainer="hrazafia <hrazafia@student.42antananarivo.mg>"
 
 RUN apt-get update && apt-get -y install nginx \
-  && apt-get -y install openssl
+  && apt-get -y install openssl && apt-get -y install curl
 
 RUN rm /etc/nginx/sites-enabled/default \
  && rm /etc/nginx/sites-available/default
@@ -18,7 +18,7 @@ COPY ./tools/entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
 HEALTHCHECK --interval=30s --timeout=5s --start-period=15s --retries=3 \
-  CMD curl -kfsS https://localhost/ || exit 1
+  CMD curl -kfsS https://localhost/health || exit 1
 
 EXPOSE 443
 
