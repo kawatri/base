@@ -8,6 +8,9 @@ services:
     depends_on:
       mariadb:
         condition: service_healthy
+    depends_on:
+      wordpress:
+        condition: service_healthy
     ports:
       - "443:443"
     volumes:
