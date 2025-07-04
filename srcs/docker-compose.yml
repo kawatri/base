@@ -15,7 +15,7 @@ services:
       - ssl_data:/etc/ssl/hrazafia.42.fr
       - nginx_logs:/var/log/nginx
     networks:
-      - test_net
+      - frontend_network
 
   mariadb:
     build:
@@ -31,7 +31,7 @@ services:
     volumes:
       - mariadb_data:/var/lib/mysql
     networks:
-      - test_net
+      - backend_network
     secrets:
       - db_passwd
       - db_root_passwd
@@ -48,7 +48,8 @@ services:
       mariadb:
         condition: service_healthy
     networks:
-      - test_net
+      - frontend_network
+      - backend_network
 
 volumes:
   mariadb_data:
@@ -83,5 +84,7 @@ secrets:
     file: ../secrets/db_root_passwd.txt
 
 networks:
-  test_net:
+  frontend_network:
+    driver: bridge
+  backend_network:
     driver: bridge
