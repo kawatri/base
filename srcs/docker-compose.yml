@@ -19,6 +19,31 @@ services:
     networks:
       - frontend_network
 
+  wordpress:
+    build:
+      context: ./requirements/wordpress
+    image: wordpress:hrazafia
+    container_name: wordpress
+    restart: always
+    env_file:
+      - .env
+    environment:
+      MYSQL_PASSWORD_FILE: /run/secrets/db_passwd
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_root_passwd
+      USER_PASSWORD_FILE: /run/secrets/user_passwd
+      ADMIN_PASSWORD_FILE: /run/secrets/admin_passwd
+    volumes:
+      - wordpress_data:/var/www/hrazafia.42.fr
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    networks:
+      - frontend_network
+      - backend_network
+    secrets:
+      - db_passwd
+      - db_root_passwd
+
   mariadb:
     build:
       context: ./requirements/mariadb
@@ -37,21 +62,6 @@ services:
     secrets:
       - db_passwd
       - db_root_passwd
-      
-  wordpress:
-    build:
-      context: ./requirements/wordpress
-    image: wordpress:hrazafia
-    container_name: wordpress
-    restart: always
-    volumes:
-      - wordpress_data:/var/www/hrazafia.42.fr
-    depends_on:
-      mariadb:
-        condition: service_healthy
-    networks:
-      - frontend_network
-      - backend_network
 
 volumes:
   mariadb_data:
@@ -84,6 +94,10 @@ secrets:
     file: ../secrets/db_passwd.txt
   db_root_passwd:
     file: ../secrets/db_root_passwd.txt
+  admin_passwd:
+    file: ../secrets/admin_passwd.txt
+  user_passwd:
+    file: ../secrets/user_passwd.txt
 
 networks:
   frontend_network:
