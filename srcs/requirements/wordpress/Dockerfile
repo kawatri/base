@@ -21,7 +21,7 @@ EXPOSE 9000
 
 WORKDIR /var/www/hrazafia.42.fr
 
-HEALTHCHECK --interval=10s --timeout=5s --retries=5 \
+HEALTHCHECK --interval=10s --timeout=5s --retries=3 \
   CMD ["wp", "core", "is-installed", "--allow-root"]
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
