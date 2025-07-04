@@ -49,6 +49,8 @@ services:
     environment:
       MYSQL_PASSWORD_FILE: /run/secrets/db_passwd
       MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_root_passwd
+      USER_PASSWORD_FILE: /run/secrets/user_passwd
+      ADMIN_PASSWORD_FILE: /run/secrets/admin_passwd
     volumes:
       - wordpress_data:/var/www/hrazafia.42.fr
     depends_on:
@@ -60,6 +62,8 @@ services:
     secrets:
       - db_passwd
       - db_root_passwd
+      - user_passwd
+      - admin_passwd
 
 volumes:
   mariadb_data:
@@ -92,6 +96,10 @@ secrets:
     file: ../secrets/db_passwd.txt
   db_root_passwd:
     file: ../secrets/db_root_passwd.txt
+  user_passwd:
+    file: ../secrets/user_passwd.txt
+  admin_passwd:
+    file: ../secrets/admin_passwd.txt
 
 networks:
   frontend_network:
