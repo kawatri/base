@@ -5,14 +5,13 @@ services:
     image: nginx:hrazafia
     container_name: nginx
     restart: always
+    ports:
+      - "443:443"
     depends_on:
       mariadb:
         condition: service_healthy
-    depends_on:
       wordpress:
         condition: service_healthy
-    ports:
-      - "443:443"
     volumes:
       - wordpress_data:/var/www/hrazafia.42.fr
       - ssl_data:/etc/ssl/hrazafia.42.fr
