@@ -1,4 +1,4 @@
-NAME = Inception
+NAME = .inception
 
 DOCKER_COMPOSE_FILE = srcs/docker-compose.yml
 
@@ -16,7 +16,7 @@ all: $(NAME)
 
 $(NAME):
 	$(MAKE) up
-	touch Inception
+	touch $(NAME)
 
 up:
 	mkdir -p $(VOLUME_LIST)
@@ -35,7 +35,7 @@ status:
 	docker compose -f $(DOCKER_COMPOSE_FILE) ps
 
 clean: down
-	$(RM) Inception
+	$(RM) $(NAME)
 	docker volume rm $$(docker volume list -q)
 	docker image rm $$(docker image list -aq)
 	$(RM) -r $(VOLUME_LIST)
