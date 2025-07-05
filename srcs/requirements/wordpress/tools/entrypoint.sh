@@ -17,7 +17,7 @@ if [ ! -f /var/www/hrazafia.42.fr/wp-config.php ]; then
     --admin_email="$ADMIN_EMAIL" --skip-email --allow-root
 
   wp user create $USER_NAME $USER_EMAIL --user_pass="$USER_PASSWORD" \
-    --role=author --allow-root
+    --role=editor --allow-root
 fi
 
 exec "$@"
