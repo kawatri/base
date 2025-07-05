@@ -36,9 +36,8 @@ status:
 	docker compose -f $(DOCKER_COMPOSE_FILE) ps
 
 clean: down
-	$(RM) $(NAME)
-	docker volume rm $$(docker volume list -q)
 	docker image rm $$(docker image list -aq)
+	docker volume rm $$(docker volume list -q)
 	$(RM) -r $(VOLUME_LIST)
 
 fclean: clean
