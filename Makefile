@@ -43,6 +43,6 @@ clean: down
 fclean: clean
 	docker system prune --all --force
 
-re: fclean all
+re: clean all
 
 .PHONY: all up down start stop status clean fclean re
