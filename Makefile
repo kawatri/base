@@ -14,7 +14,8 @@ VOLUME_LIST = $(DATABASE_VOLUME) $(WEBSITE_VOLUME) \
 
 all: $(NAME)
 
-$(NAME): up
+$(NAME):
+	$(MAKE) up
 	touch Inception
 
 up:
