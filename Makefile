@@ -23,6 +23,7 @@ up:
 	docker compose -f $(DOCKER_COMPOSE_FILE) up -d --build
 
 down:
+	$(RM) $(NAME)
 	docker compose -f $(DOCKER_COMPOSE_FILE) down
 
 start:
