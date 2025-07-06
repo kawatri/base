@@ -4,10 +4,11 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 LABEL maintainer="hrazafia <hrazafia@student.42antananarivo.mg>"
 
-RUN apt-get update && apt-get -y install nginx openssl curl
+RUN apt-get update && apt-get -y install nginx openssl curl \
+  && rm -rf /var/lib/apt/lists/*
 
 RUN rm /etc/nginx/sites-enabled/default \
- && rm /etc/nginx/sites-available/default
+  && rm /etc/nginx/sites-available/default
 
 VOLUME ["/var/www/hrazafia.42.fr", "/etc/ssl/hrazafia.42.fr"]
 

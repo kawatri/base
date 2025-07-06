@@ -4,7 +4,8 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 LABEL maintainer="hrazafia <hrazafia@student.42antananarivo.mg>"
 
-RUN apt-get -y update && apt-get -y install mariadb-server mariadb-client
+RUN apt-get -y update && apt-get -y install mariadb-server mariadb-client \
+  && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /var/lib/mysql /var/run/mysqld \
   && chown -R mysql:mysql /var/lib/mysql /var/run/mysqld
