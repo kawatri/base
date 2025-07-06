@@ -19,7 +19,7 @@ $(NAME):
 	touch $(NAME)
 
 up:
-	mkdir -p $(VOLUME_LIST)
+	sudo mkdir -p $(VOLUME_LIST)
 	docker compose -f $(DOCKER_COMPOSE_FILE) up -d --build
 
 down:
@@ -36,9 +36,9 @@ status:
 	docker compose -f $(DOCKER_COMPOSE_FILE) ps
 
 clean: down
+	sudo $(RM) -r $(VOLUME_LIST)
 	docker image rm $$(docker image list -aq)
 	docker volume rm $$(docker volume list -q)
-	$(RM) -r $(VOLUME_LIST)
 
 fclean: clean
 	docker system prune --all --force
