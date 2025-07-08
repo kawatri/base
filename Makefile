@@ -20,6 +20,9 @@ $(NAME):
 	$(MAKE) up
 	touch $(NAME)
 
+status:
+	docker compose -f $(DOCKER_COMPOSE_FILE) ps
+
 up:
 	sudo mkdir -p $(VOLUME_LIST)
 	docker compose -f $(DOCKER_COMPOSE_FILE) $(UP)
@@ -33,9 +36,6 @@ start:
 
 stop:
 	docker compose -f $(DOCKER_COMPOSE_FILE) stop
-
-status:
-	docker compose -f $(DOCKER_COMPOSE_FILE) ps
 
 clean: down
 	sudo $(RM) -r $(VOLUME_DIRECTORY)
