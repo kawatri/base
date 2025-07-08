@@ -14,7 +14,6 @@ services:
         condition: service_healthy
     volumes:
       - wordpress_data:/var/www/hrazafia.42.fr
-      - nginx_logs:/var/log/nginx
     networks:
       - frontend_network
 
@@ -76,12 +75,6 @@ volumes:
     driver_opts:
       type: none
       device: /home/hrazafia/data/www/hrazafia.42.fr
-      o: bind
-  nginx_logs:
-    driver: local
-    driver_opts:
-      type: none
-      device: /home/hrazafia/data/logs
       o: bind
 
 secrets:
