@@ -3,7 +3,7 @@ NAME			= .Inception
 DOCKER_COMPOSE_FILE	= srcs/docker-compose.yml
 VOLUME_DIRECTORY	= /home/hrazafia/data
 
-DATABASE_VOLUME		= /home/hrazafia/data/mysql
+DATABASE_VOLUME		= /home/hrazafia/data/mariadb
 WEBSITE_VOLUME		= /home/hrazafia/data/www/hrazafia.42.fr
 
 RM			= rm -f
