@@ -6,13 +6,13 @@ LABEL maintainer="hrazafia <hrazafia@student.42antananarivo.mg>"
 
 RUN apt-get update && apt-get -y install nginx openssl curl \
   && rm -rf /var/lib/apt/lists/* \
-  && mkdir -p /etc/ssl/hrazafia.42.fr \
-  && openssl req -newkey rsa:2048 -nodes -x509 -days 365 \
+  && mkdir -p /etc/ssl/hrazafia.42.fr /var/www/hrazafia.42.fr \
+  && chown -R www-data:www-data /etc/ssl/hrazafia.42.fr /var/www/hrazafia.42.fr
+
+RUN openssl req -newkey rsa:2048 -nodes -x509 -days 365 \
     -keyout /etc/ssl/hrazafia.42.fr/hrazafia.42.fr.key \
     -out /etc/ssl/hrazafia.42.fr/hrazafia.42.fr.crt \
     -subj "/C=MG/ST=Malagasy/L=Antananarivo/O=42/CN=hrazafia.42.fr"
-
-VOLUME ["/var/www/hrazafia.42.fr"]
 
 RUN rm /etc/nginx/sites-enabled/default \
   && rm /etc/nginx/sites-available/default
