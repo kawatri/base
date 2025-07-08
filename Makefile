@@ -3,15 +3,13 @@ NAME			= .Inception
 DOCKER_COMPOSE_FILE	= srcs/docker-compose.yml
 VOLUME_DIRECTORY	= /home/hrazafia/data
 
-DATABASE_VOLUME		= /home/hrazafia/data/db
+DATABASE_VOLUME		= /home/hrazafia/data/mysql
 WEBSITE_VOLUME		= /home/hrazafia/data/www/hrazafia.42.fr
-LOGS_VOLUME		= /home/hrazafia/data/logs
 
 RM			= rm -f
 UP			= up -d --build
 
-VOLUME_LIST		= $(DATABASE_VOLUME) $(WEBSITE_VOLUME) \
-			  $(LOGS_VOLUME)
+VOLUME_LIST		= $(DATABASE_VOLUME) $(WEBSITE_VOLUME)
 
 all: $(NAME)
 
