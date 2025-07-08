@@ -1,16 +1,18 @@
-NAME = .inception
+NAME			= .Inception
 
-DOCKER_COMPOSE_FILE = srcs/docker-compose.yml
+DOCKER_COMPOSE_FILE	= srcs/docker-compose.yml
+VOLUME_DIRECTORY	= /home/hrazafia/data
 
-RM = rm -f
+DATABASE_VOLUME		= /home/hrazafia/data/db
+WEBSITE_VOLUME		= /home/hrazafia/data/www/hrazafia.42.fr
+LOGS_VOLUME		= /home/hrazafia/data/logs
+CERTS_VOLUME		= /home/hrazafia/data/ssl/hrazafia.42.fr
 
-DATABASE_VOLUME = /home/hrazafia/data/db
-WEBSITE_VOLUME = /home/hrazafia/data/www/hrazafia.42.fr
-LOGS_VOLUME = /home/hrazafia/data/logs
-CERTS_VOLUME = /home/hrazafia/data/ssl/hrazafia.42.fr
+RM			= rm -f
+UP			= up -d --build
 
-VOLUME_LIST = $(DATABASE_VOLUME) $(WEBSITE_VOLUME) \
-  $(LOGS_VOLUME) $(CERTS_VOLUME)
+VOLUME_LIST		= $(DATABASE_VOLUME) $(WEBSITE_VOLUME) \
+			  $(LOGS_VOLUME) $(CERTS_VOLUME)
 
 all: $(NAME)
 
@@ -20,7 +22,7 @@ $(NAME):
 
 up:
 	sudo mkdir -p $(VOLUME_LIST)
-	docker compose -f $(DOCKER_COMPOSE_FILE) up -d --build
+	docker compose -f $(DOCKER_COMPOSE_FILE) $(UP)
 
 down:
 	$(RM) $(NAME)
@@ -36,7 +38,7 @@ status:
 	docker compose -f $(DOCKER_COMPOSE_FILE) ps
 
 clean: down
-	sudo $(RM) -r $(VOLUME_LIST)
+	sudo $(RM) -r $(VOLUME_DIRECTORY)
 	docker image rm $$(docker image list -aq)
 	docker volume rm $$(docker volume list -q)
 
