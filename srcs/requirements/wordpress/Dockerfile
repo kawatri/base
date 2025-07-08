@@ -26,7 +26,7 @@ WORKDIR /var/www/hrazafia.42.fr
 
 RUN wp core download --allow-root
 
-HEALTHCHECK --interval=15s --timeout=5s --start-period=120s --retries=10 \
+HEALTHCHECK --interval=15s --timeout=5s --start-period=30s --retries=5 \
   CMD ["wp", "core", "is-installed", "--allow-root"]
 
 EXPOSE 9000
