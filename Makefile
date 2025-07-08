@@ -6,13 +6,12 @@ VOLUME_DIRECTORY	= /home/hrazafia/data
 DATABASE_VOLUME		= /home/hrazafia/data/db
 WEBSITE_VOLUME		= /home/hrazafia/data/www/hrazafia.42.fr
 LOGS_VOLUME		= /home/hrazafia/data/logs
-CERTS_VOLUME		= /home/hrazafia/data/ssl/hrazafia.42.fr
 
 RM			= rm -f
 UP			= up -d --build
 
 VOLUME_LIST		= $(DATABASE_VOLUME) $(WEBSITE_VOLUME) \
-			  $(LOGS_VOLUME) $(CERTS_VOLUME)
+			  $(LOGS_VOLUME)
 
 all: $(NAME)
 
