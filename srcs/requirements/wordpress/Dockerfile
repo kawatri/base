@@ -17,17 +17,19 @@ RUN mkdir -p /run/php \
 COPY ./tools/entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
+VOLUME ["/var/www/hrazafia.42.fr"]
+
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
     && chmod +x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp
+
+WORKDIR /var/www/hrazafia.42.fr
+
+RUN wp core download --allow-root
 
 HEALTHCHECK --interval=15s --timeout=5s --start-period=120s --retries=10 \
   CMD ["wp", "core", "is-installed", "--allow-root"]
 
-VOLUME ["/var/www/hrazafia.42.fr"]
-
 EXPOSE 9000
-
-WORKDIR /var/www/hrazafia.42.fr
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 CMD ["php-fpm7.4", "-F"]

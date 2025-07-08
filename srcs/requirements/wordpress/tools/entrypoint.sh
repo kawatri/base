@@ -7,7 +7,6 @@ USER_PASSWORD="$(<"$USER_PASSWORD_FILE")"
 ADMIN_PASSWORD="$(<"$ADMIN_PASSWORD_FILE")"
 
 if [ ! -f /var/www/hrazafia.42.fr/wp-config.php ]; then
-  wp core download --allow-root
 
   wp config create --dbname="$MYSQL_DATABASE" --dbuser="$MYSQL_USER" \
     --dbpass="$MYSQL_USER_PASSWORD" --dbhost="$DATABASE_HOST" --allow-root
