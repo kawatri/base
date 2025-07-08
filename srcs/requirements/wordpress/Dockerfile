@@ -11,13 +11,11 @@ RUN apt-get update && apt-get install -y php7.4 php7.4-fpm \
 COPY ./conf/php.ini /etc/php/7.4/fpm/php.ini
 COPY ./conf/www.conf /etc/php/7.4/fpm/pool.d/www.conf
 
-RUN mkdir -p /run/php \
-  && chown www-data:www-data /run/php
+RUN mkdir -p /run/php /var/www/hrazafia.42.fr \
+  && chown www-data:www-data /run/php /var/www/hrazafia.42.fr
 
 COPY ./tools/entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
-
-VOLUME ["/var/www/hrazafia.42.fr"]
 
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
     && chmod +x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp
@@ -28,6 +26,8 @@ RUN wp core download --allow-root
 
 HEALTHCHECK --interval=15s --timeout=5s --start-period=30s --retries=5 \
   CMD ["wp", "core", "is-installed", "--allow-root"]
+
+VOLUME ["/var/www/hrazafia.42.fr"]
 
 EXPOSE 9000
 
