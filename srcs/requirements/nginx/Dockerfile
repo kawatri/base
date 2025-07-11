@@ -14,8 +14,8 @@ RUN openssl req -newkey rsa:2048 -nodes -x509 -days 365 \
     -out /etc/ssl/hrazafia.42.fr/hrazafia.42.fr.crt \
     -subj "/C=MG/ST=Malagasy/L=Antananarivo/O=42/CN=hrazafia.42.fr"
 
-RUN rm /etc/nginx/sites-enabled/default \
-  && rm /etc/nginx/sites-available/default
+RUN rm -f /etc/nginx/sites-enabled/default \
+  && rm -f /etc/nginx/sites-available/default
 
 COPY ./conf/default.conf /etc/nginx/conf.d/default.conf
 
