@@ -2,8 +2,10 @@
 set -e
 
 MYSQL_SOCKET=/var/run/mysqld/mysqld.sock
+MYSQL_INIT="/var/lib/mysql/.initialized"
 
-if [ ! -f /var/lib/mysql/.initialized ]; then
+if [ ! -f "$MYSQL_INIT" ]; then
+
   mysqld --user=mysql --skip-networking --socket=$MYSQL_SOCKET &
   child_pid="$!"
 
@@ -17,9 +19,9 @@ if [ ! -f /var/lib/mysql/.initialized ]; then
   /usr/local/bin/scripts/init.sh
   /usr/local/bin/scripts/secure.sh
 
-  touch /var/lib/mysql/.initialized
+  touch "$MYSQL_INIT"
 
-  kill "$child_pid"
+  mysqladmin shutdown -uroot --socket="$MYSQL_SOCKET"
   wait "$child_pid"
 else
   echo "$(date '+%F %k:%M:%S') $$ [INFO] Data base is already initialized"
