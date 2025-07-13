@@ -16,7 +16,6 @@ VOLUME_LIST		= $(DATABASE_VOLUME) $(WEBSITE_VOLUME)
 all: $(NAME)
 
 $(NAME):
-	bash $(INIT)
 	$(MAKE) up
 	touch $(NAME)
 
@@ -24,12 +23,9 @@ status:
 	docker compose -f $(DOCKER_COMPOSE_FILE) ps
 
 up:
+	bash $(INIT)
 	sudo mkdir -p $(VOLUME_LIST)
 	docker compose -f $(DOCKER_COMPOSE_FILE) $(UP)
-
-down:
-	$(RM) $(NAME)
-	docker compose -f $(DOCKER_COMPOSE_FILE) down
 
 start:
 	docker compose -f $(DOCKER_COMPOSE_FILE) start
@@ -37,14 +33,15 @@ start:
 stop:
 	docker compose -f $(DOCKER_COMPOSE_FILE) stop
 
-clean: down
+clean:
+	$(RM) $(NAME)
+	docker compose -f $(DOCKER_COMPOSE_FILE) down
+
+fclean: clean
 	sudo $(RM) -r $(VOLUME_DIRECTORY)
 	docker image rm $$(docker image list -aq)
 	docker volume rm $$(docker volume list -q)
 
-fclean: clean
-	docker system prune --all --force
-
-re: clean all
+re: fclean all
 
 .PHONY: all up down start stop status clean fclean re
