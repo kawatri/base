@@ -14,8 +14,8 @@ WEBSITE_TITLE="Inception 42 - hrazafia"
 # MYSQL SETUP
 DATABASE_HOST=mariadb
 
-MYSQL_USER=wordpress_user
-MYSQL_DATABASE=wordpress_db
+MYSQL_USER=wp_user
+MYSQL_DATABASE=wordpressdb
 
 #WORDPRESS
 ADMIN_USER=hrazafia
