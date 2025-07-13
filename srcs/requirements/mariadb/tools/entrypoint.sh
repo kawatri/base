@@ -7,7 +7,7 @@ if [ ! -f /var/lib/mysql/.initialized ]; then
   mysqld --user=mysql --skip-networking --socket=$MYSQL_SOCKET &
   child_pid="$!"
 
-  for i in {30..0}; do
+  for i in {0..30}; do
     if mysqladmin ping --silent --socket=$MYSQL_SOCKET; then
       break
     fi
